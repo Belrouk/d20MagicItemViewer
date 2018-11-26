@@ -3,6 +3,10 @@ from __future__ import unicode_literals
 
 from django.db.models import Model, CharField, TextField
 
+from djrichtextfield.models import RichTextField
+
+
+
 
 class MagicalItem(Model):
 
@@ -12,5 +16,4 @@ class MagicalItem(Model):
     slot = CharField(max_length=100)
     value = CharField(max_length=100)
     description = TextField()
-    benefits = TextField()
-    
+    benefits = RichTextField()
