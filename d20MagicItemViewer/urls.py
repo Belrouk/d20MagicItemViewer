@@ -17,8 +17,9 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^djrichtextfield/', include('djrichtextfield.urls'))
+    # url(r'^admin/', admin.site.urls),
+    url(r'^djrichtextfield/', include('djrichtextfield.urls')),
+    url("^", include("mezzanine.urls")),
 
-
+    url(r"^viewer/", include("viewer.urls", namespace="viewer")),
 ]
