@@ -32,7 +32,9 @@ SECRET_KEY = 'mo44esi&m%e2!9+9r-+*2*t&5y0dyd)hz11&9qipcb=(@ujh7s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost", "127.0.0.1",
+]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
