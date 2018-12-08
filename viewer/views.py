@@ -8,8 +8,8 @@ from .models import MagicalItem
 def home_view(
         request, form_class=None, template="viewer/home.html",
         extra_context=None, when=None, *args, **kwargs):
-        items = MagicalItem.objects.all()[0]
+        items = MagicalItem.objects.all()
         context = {
-            'items': items
+            'item_list': items
         }
         return render(request, template, context=context)

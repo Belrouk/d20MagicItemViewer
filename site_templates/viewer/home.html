@@ -1,3 +1,32 @@
+{% extends 'base.html' %}
 
-<h1>Hello World!!</h1>
-{{ items }}
+
+{% block replace_main %}
+<div class="">
+  <div class="">
+    <h1>Title goes here</h1>
+    <div class="row">
+      <div class="col-4">
+        <h3>Sort/filter options here</h3>
+        <div class="form-group">
+          <select mutiple class="form-control" id="ms_item">
+            {% for item in item_list %}
+              <option>
+              {{item.name}}-{{item.campaign}}
+                </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-8">
+          <h1>item viewer goes here</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" name="button">Import Items</button>
+  <button type="button" name="button">Export Items</button>
+  <button type="button" name="button">Export to D&D Beyond</button>
+</div>
+{% endblock %}

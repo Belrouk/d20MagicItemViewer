@@ -22,33 +22,27 @@
 
 <body>
 
-    <div id="wrapper">
+    <div id="wrapper" class="toggled">
 
         <!-- Sidebar -->
-        <div id="sidebar-wrapper">
+        <div id="sidebar-wrapper" >
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
-                        Start Bootstrap
-                    </a>
+                   <button href="#">
+                      login
+                    </button>
+                   <button href="#">
+                      Sign-up
+                    </button>
                 </li>
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a href="#">Home</a>
                 </li>
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="{% url 'viewer:item_viewer' %}">Item Collection</a>
                 </li>
                 <li>
-                    <a href="#">Overview</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
+                    <a href="#">Create Item</a>
                 </li>
                 <li>
                     <a href="#">Contact</a>
@@ -58,7 +52,9 @@
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
+        {% block replace_main %}
         <div id="page-content-wrapper">
+
             <div class="container-fluid">
                 <h1>Simple Sidebar</h1>
                 <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
@@ -66,6 +62,7 @@
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
             </div>
         </div>
+        {% endblock %}
         <!-- /#page-content-wrapper -->
 
     </div>

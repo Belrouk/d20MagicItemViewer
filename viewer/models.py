@@ -8,6 +8,7 @@ from djrichtextfield.models import RichTextField
 
 class MagicalItem(Model):
 
+    campaign = CharField(max_length=200, null=True, blank=True, default="")
     name = CharField(max_length=200)
     rarity = CharField(max_length=100)
     attunement = CharField(max_length=100)

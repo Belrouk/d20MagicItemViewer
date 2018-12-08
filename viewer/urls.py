@@ -4,5 +4,5 @@ from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
-    url(r'^$', home_view, name='home_viewer'),
+    url(r'^items/$', home_view, name='item_viewer'),
 ]
