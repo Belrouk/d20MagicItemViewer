@@ -8,14 +8,21 @@
     <div class="row">
       <div class="col-4">
         <h3>Sort/filter options here</h3>
-        <div class="form-group">
-          <select mutiple class="form-control" id="ms_item">
-            {% for item in item_list %}
-              <option>
-              {{item.name}}-{{item.campaign}}
-                </option>
-            {% endfor %}
+        <div>
+          <select multiple class="form-control" id="sel2">
+            <ul class="list-group">
+              {% for item in item_list %}
+              <option class="list-group-item" value={{item.value_name}}>
+                  <li >
+
+                {{item.name}} {{item.campaign}}
+              </li> </option>
+              {% endfor %}
+            </ul>
+          
           </select>
+
+
         </div>
       </div>
       <div class="row">

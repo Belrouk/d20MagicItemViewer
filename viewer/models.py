@@ -19,3 +19,7 @@ class MagicalItem(Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def value_name(self):
+        return self.name.replace(" ", "-")
