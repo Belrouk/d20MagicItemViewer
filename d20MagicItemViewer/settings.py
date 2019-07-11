@@ -148,6 +148,7 @@ INSTALLED_APPS = [
 
     'djrichtextfield',
 
+    "crispy_forms",
 
 
 

@@ -1,0 +1,17 @@
+/.idea
+*.pyc
+*.py~
+*.pyo
+*.db
+*.swp
+*.sqlite3
+*.sqlite
+*_original
+.metadata
+.settings
+.DS_Store
+.coverage
+.ackrc
+celerybeat-schedule
+db.sqlite3
+local_settings.py
