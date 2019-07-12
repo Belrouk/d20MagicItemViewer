@@ -1,76 +1,51 @@
-<!DOCTYPE html>
-{% load static %}
+{% load static i18n static %}
+
+<link href="{% static 'startbootstrap-simple-sidebar/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'startbootstrap-simple-sidebar/css/simple-sidebar.css' %}" rel="stylesheet">
 
 <html lang="en">
 
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Simple Sidebar - Start Bootstrap Template</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'startbootstrap-simple-sidebar/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href='{% static 'startbootstrap-simple-sidebar/css/simple-sidebar.css' %}' rel="stylesheet">
-
-</head>
-
 <body>
-
     <div id="wrapper" class="toggled">
-
         <!-- Sidebar -->
-        <div id="sidebar-wrapper" >
+        <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                   <button href="#">
-                      login
-                    </button>
-                   <button href="#">
-                      Sign-up
-                    </button>
+                  {% comment %}
+                    <a href="#">Login</a>
+                    <a href='#'> Sign-up</a>
+                  {% endcomment %}
                 </li>
                 <li>
-                    <a href="#">Home</a>
+                    <a href="{% url 'viewer:item_viewer' %}">View Collection</a>
                 </li>
                 <li>
-                    <a href="{% url 'viewer:item_viewer' %}">Item Collection</a>
+                    <a href="{% url 'viewer:create_item' %}">Create your own!</a>
                 </li>
                 <li>
-                    <a href="#">Create Item</a>
+                    <a href="#">Import/Export</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="#">Documentation</a>
                 </li>
+
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
-        {% block replace_main %}
         <div id="page-content-wrapper">
-
+        {% block replace_main %}
             <div class="container-fluid">
-              <select multiple class="form-control" id="sel2">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
+                <h1>Simple Sidebar</h1>
+                <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
             </div>
+          {% endblock %}
         </div>
-        {% endblock %}
+      </div>
         <!-- /#page-content-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
 
     <!-- Bootstrap core JavaScript -->
     <script src="{% static 'startbootstrap-simple-sidebar/vendor/jquery/jquery.min.js' %}"></script>
@@ -85,5 +60,4 @@
     </script>
 
 </body>
-
 </html>

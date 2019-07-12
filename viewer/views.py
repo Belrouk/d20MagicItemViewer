@@ -1,15 +1,26 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render
 from .models import MagicalItem
 
+from .forms import ItemViewerForm, ItemCreatorView
 
-# Create your views here.
+
 def home_view(
-        request, form_class=None, template="viewer/home.html",
+        request, form_class=ItemViewerForm, template="viewer/home.html",
         extra_context=None, when=None, *args, **kwargs):
+
+
         items = MagicalItem.objects.all()
         context = {
-            'item_list': items
+            'item_list': items,
+            'form': form_class
         }
-        return render(request, template, context=context)
+
+        return render(request, template, context, *args, **kwargs)
+
+def create_item_view(request, form_class=ItemCreatorView, template="viewer/create_item.html",
+                    extra_context=None, when=None, *args, **kwargs):
+        context = {
+            "form": form_class
+        }
+        return render(request, template, context, *args, **kwargs)

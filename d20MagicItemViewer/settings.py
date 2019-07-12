@@ -120,8 +120,25 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip("/").split("/"))
 
 # Package/module name to import the root urlpatterns from for the project.
 ROOT_URLCONF = "%s.urls" % PROJECT_APP
-
-
+########################################################
+#
+# Django ritch text field config
+########################################################
+DJRICHTEXTFIELD_CONFIG = {
+    'js': ['//tinymce.cachefly.net/4.1/tinymce.min.js'],
+    'init_template': 'djrichtextfield/init/tinymce.js',
+    'settings': {  # CKEditor
+        'toolbar': [
+            {'items': ['Format', '-', 'Bold', 'Italic', '-',
+                       'RemoveFormat']},
+            {'items': ['Link', 'Unlink', 'Image', 'Table']},
+            {'items': ['Source']}
+        ],
+        'format_tags': 'p;h1;h2;h3',
+        'width': 7000
+}
+}
+########################################################
 # Application definition
 
 INSTALLED_APPS = [
@@ -259,16 +276,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-DJRICHTEXTFIELD_CONFIG = {
-    'js': ['//tinymce.cachefly.net/4.1/tinymce.min.js'],
-    'init_template': 'djrichtextfield/init/tinymce.js',
-    'settings': {
-        'menubar': False,
-        'plugins': 'link image',
-        'toolbar': 'bold italic | link image | removeformat',
-        'width': 700
-    }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
