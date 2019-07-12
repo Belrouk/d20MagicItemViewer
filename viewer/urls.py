@@ -4,6 +4,6 @@ from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
-    url(r'^items/$', home_view, name='item_viewer'),
-    url(r'^create/$', create_item_view, name='create_item'),
+    url(r'^collection/$', home_view, name='item_viewer'),
+    url(r'^creator/$', create_item_view, name='create_item'),
 ]
