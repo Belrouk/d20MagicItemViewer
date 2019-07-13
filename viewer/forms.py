@@ -20,7 +20,26 @@ from django.core.exceptions import ValidationError
 class ItemViewerForm(Form):
     rarity_filter = ChoiceField(choices=MagicalItem.RARITY_LEVEL, required=False)
     attunement_filter = ChoiceField(choices=MagicalItem.ATTUNEMENT, required=False)
-    item_filter = ChoiceField(choices=MagicalItem.ITEM_TYPE, required=False)
+    type_filter = ChoiceField(choices=MagicalItem.ITEM_TYPE, required=False)
+
+    def clean_rarity_filter(self):
+        data = self.cleaned_data['rarity_filter']
+        if data is None or data is '':
+            data = 0
+        return data
+
+    def clean_attunement_filter(self):
+        data = self.cleaned_data['attunement_filter']
+        if data is None or data is '':
+            data = None
+        return data
+
+    def clean_type_filter(self):
+        data = self.cleaned_data['type_filter']
+        if data is None or data is '':
+            data = 0
+        return data
+
 
 class ItemCreatorView(ModelForm):
     rarity = ChoiceField(choices=MagicalItem.RARITY_LEVEL, required=True)

@@ -20,9 +20,9 @@
        {{ form.attunement_filter|as_crispy_field }}
      </div>
      <div class="form-group col-md-2 mb-0">
-       {{ form.item_filter|as_crispy_field }}
+       {{ form.type_filter|as_crispy_field }}
      </div>
-     <input class="btn btn-md btn-primary"  type="submit" value="Filter Item" />
+     <input class="btn btn-md btn-primary"  name="filter_items" type="submit" value="Filter Items" />
    </div>
    <br>
   </form>
@@ -38,9 +38,6 @@
 
   </div>
 <div>
-  <button type="button" name="button">Import Items</button>
-  <button type="button" name="button">Export Items</button>
-  <button type="button" name="button">Export to D&D Beyond</button>
-<a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+  <input class="btn btn-md btn-primary"  name="export_items" type="submit" value="Export Items as PDF" />
 </div>
 {% endblock %}
