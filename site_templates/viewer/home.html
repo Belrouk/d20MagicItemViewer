@@ -4,6 +4,14 @@
 {% block replace_main %}
   <div class="">
     <h1>Magic Items</h1>
+    {% if form.errors and not form.non_field_errors %}
+      <p class="errornote alert alert-danger">
+        {% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}
+        {% else %}{% trans "Please correct the errors below." %}{% endif %}
+      </p>
+      {% endif %}
+    <form method='POST' enctype="multipart/form-data" action="/items/collection/">
+        {% csrf_token %}
     <div class="form-row">
      <div class="form-group col-md-2 mb-0">
        {{ form.rarity_filter|as_crispy_field }}
@@ -14,8 +22,10 @@
      <div class="form-group col-md-2 mb-0">
        {{ form.item_filter|as_crispy_field }}
      </div>
-     <input type="submit" value="Filter Items">
+     <input class="btn btn-md btn-primary"  type="submit" value="Filter Item" />
    </div>
+   <br>
+  </form>
     <div class=''>
       <ul class="list-group">
               {% for item in item_list %}
@@ -25,6 +35,7 @@
               {% endfor %}
       </ul>
     </div>
+
   </div>
 <div>
   <button type="button" name="button">Import Items</button>

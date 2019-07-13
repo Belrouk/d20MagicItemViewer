@@ -63,9 +63,9 @@ class MagicalItem(TimeStamped):
         (SPECIAL, _('Special'))
     )
     id = AutoField(primary_key=True)
-    # Creator
+    # Creator of item should be added
     campaign = CharField(max_length=200, null=True, blank=True, default="")
-    name = CharField(max_length=200, unique=True)
+    name = CharField(max_length=200)
     rarity = IntegerField(verbose_name=_("Item Rarity"), choices=RARITY_LEVEL,
                           default=COMMON, null=True, blank=True)
     attunement = CharField(verbose_name=_("Requires Attunemnet"), choices=ATTUNEMENT,
@@ -75,7 +75,21 @@ class MagicalItem(TimeStamped):
     value = CharField(max_length=100, null=True, blank=True, default=None)
     description = TextField()
     benefits = RichTextField()
-    # tags
+    # tags for the item should go here as well. for searching. later edition.
 
     def __str__(self):
         return self.name
+
+    @property
+    def rarity_text(self):
+        if self.rarity is None:
+            return "---"
+        rarity_text = {key: value for key, value in self.RARITY_LEVEL}
+        return rarity_text[self.rarity]
+
+    @property
+    def type_text(self):
+        if self.type is None:
+            return "---"
+        type_text = {key: value for key, value in self.ITEM_TYPE}
+        return type_text[self.type]

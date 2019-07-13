@@ -1,1 +1,20 @@
 {% load i18n static%}
+
+<div class="card">
+  <div class="card-header"id="{{item.id}}">
+      <h5 class="mb-0">
+        <div class="btn btn-link " data-toggle="collapse" data-target="#collapse{{item.id}}" aria-expanded="true" aria-controls="collapseOne{{item.id}}">
+        {{item.name}} {{item.rarity_text}} {{item.type_text}} {{item.attunement}}
+      </div>
+      </h5>
+  </div>
+
+  <div id="collapse{{item.id}}" class="collapse" aria-labelledby="{{item.id}}" data-parent="#accordion">
+    <div class="card-body">
+      <p> {{item.description}} </p>
+      <p>{{item.benefits}}</p>
+      <a href="{% url 'items:item_editor' item.id %}"> Edit</a>
+      
+    </div>
+  </div>
+</div>
