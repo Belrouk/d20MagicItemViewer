@@ -65,7 +65,7 @@ class MagicalItem(TimeStamped):
     id = AutoField(primary_key=True)
     # Creator of item should be added
     campaign = CharField(max_length=200, null=True, blank=True, default="")
-    name = CharField(max_length=200)
+    name = CharField(max_length=200, unique=True)
     rarity = IntegerField(verbose_name=_("Item Rarity"), choices=RARITY_LEVEL,
                           default=COMMON, null=True, blank=True)
     attunement = CharField(verbose_name=_("Requires Attunemnet"), choices=ATTUNEMENT,

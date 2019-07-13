@@ -87,8 +87,8 @@ class ItemEditorView(ModelForm):
                 ]
 
     def __init__(self, item, *args, **kwargs):
-
         super(ItemEditorView, self).__init__(*args, **kwargs)
+        self.instance = item
         self.fields["rarity"].label = _("Rarity")
         self.fields["attunement"].label = _("Requires Attunement")
         self.fields["type"].label = _("Item Type")
@@ -124,5 +124,5 @@ class ItemEditorView(ModelForm):
         return data
 
     def save(self, commit=True):
-        import pudb; pudb.set_trace()        
+        #import pudb; pudb.set_trace()
         return super().save(commit)

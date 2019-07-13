@@ -59,7 +59,6 @@ def create_item_view(request, form_class=ItemCreatorView, template="viewer/creat
 def edit_item_view(request, id, form_class=ItemEditorView, template="viewer/edit_item.html",
                     extra_context=None, when=None, *args, **kwargs):
 
-
         item = MagicalItem.objects.get(id=id)
         form=form_class(item=item,
             data=request.POST or None,
@@ -68,9 +67,8 @@ def edit_item_view(request, id, form_class=ItemEditorView, template="viewer/edit
         context = extra_context or {}
 
         if request.POST:
-            import pudb; pudb.set_trace()
+            #import pudb; pudb.set_trace()
             if form.is_valid():
-
                 form.save()
                 context.update({
                     "form": form,

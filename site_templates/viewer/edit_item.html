@@ -4,7 +4,7 @@
 {% csrf_token %}
 <h1> Create Item </h1>
 {% if item_saved %}
-<div class="alert alert-success" roll="alert"> Item created </div>
+<div class="alert alert-success" roll="alert"> Item has been modified </div>
 {% endif %}
 {% if form.errors and not form.non_field_errors %}
   <p class="errornote alert alert-danger">
@@ -13,7 +13,7 @@
   </p>
   {% endif %}
 <div>
-  <form method='POST' enctype="multipart/form-data" action="/items/creator/">
+  <form method='POST' enctype="multipart/form-data" >
     {% csrf_token %}
   <div class="form-row">
    <div class="form-group col-md-2 mb-0">
