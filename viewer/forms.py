@@ -17,10 +17,24 @@ from django.utils.translation import ugettext_lazy as _
 from .models import MagicalItem
 from django.core.exceptions import ValidationError
 
+
 class ItemViewerForm(Form):
-    rarity_filter = ChoiceField(choices=MagicalItem.RARITY_LEVEL, required=False)
-    attunement_filter = ChoiceField(choices=MagicalItem.ATTUNEMENT, required=False)
-    type_filter = ChoiceField(choices=MagicalItem.ITEM_TYPE, required=False)
+
+
+    def __init__(self, *args, **kwargs):
+        self._get_campaign_list()
+        super(ItemViewerForm, self).__init__(*args, **kwargs)
+        self.fields["campaign_filter"] = ChoiceField(choices=self.campaign_list, required=False)
+        self.fields["rarity_filter"] = ChoiceField(choices=MagicalItem.RARITY_LEVEL, required=False)
+        self.fields["attunement_filter"] = ChoiceField(choices=MagicalItem.ATTUNEMENT, required=False)
+        self.fields["type_filter"] = ChoiceField(choices=MagicalItem.ITEM_TYPE, required=False)
+
+    def _get_campaign_list(self):
+        campaign_choices = MagicalItem.objects.order_by().values_list('campaign', flat=True).distinct()
+        self.campaign_list = [(None, "All")]
+        for campaign in campaign_choices:
+            if campaign is not None:
+                self.campaign_list.append((campaign, campaign))
 
     def clean_rarity_filter(self):
         data = self.cleaned_data['rarity_filter']
@@ -40,6 +54,11 @@ class ItemViewerForm(Form):
             data = 0
         return data
 
+    def clean_campaign_filter(self):
+        data = self.cleaned_data['campaign_filter']
+        if data is None or data is '':
+            data = None
+        return data
 
 class ItemCreatorView(ModelForm):
     rarity = ChoiceField(choices=MagicalItem.RARITY_LEVEL, required=True)
@@ -85,8 +104,6 @@ class ItemCreatorView(ModelForm):
             raise ValidationError("Please choose a valid attunement choice")
         return data
 
-    def save(self, commit=True):
-        return super().save(commit)
 
 class ItemEditorView(ModelForm):
     rarity = ChoiceField(choices=MagicalItem.RARITY_LEVEL, required=True)

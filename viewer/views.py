@@ -4,7 +4,7 @@ from .models import MagicalItem
 
 from .forms import ItemViewerForm, ItemCreatorView, ItemEditorView
 from .queries import ItemCollectionQuerySet as ICQS
-
+from item_export.models import PDFExporter
 
 def home_view(
         request, form_class=ItemViewerForm, template="viewer/home.html",
@@ -15,15 +15,34 @@ def home_view(
             )
 
         if "filter_items" in request.POST:
-            print("Valid:", form.is_valid())
-            print("Bound:", form.is_bound)
-            print(form.non_field_errors())
             if form.is_valid():
                 rarity = form.cleaned_data["rarity_filter"]
                 type = form.cleaned_data["type_filter"]
                 attunement = form.cleaned_data['attunement_filter']
-                itemQuery = ICQS()
-                items = itemQuery.filter_item_query(rarity=rarity, attunement=attunement, type=type)
+                campaign = form.cleaned_data['campaign_filter']
+                items = ICQS().filter_item_query(rarity=rarity, attunement=attunement, type=type, campaign=campaign)
+                form = form_class(
+                    data = {
+                            'rarity_filter': rarity,
+                            'attunement_filter': attunement,
+                            'type_filter': type,
+                            'campaign_filter': campaign,
+                        },
+                    files=request.FILES or None
+                    )
+
+        elif 'export_items' in request.POST:
+
+            if form.is_valid():
+                rarity = form.cleaned_data["rarity_filter"]
+                type = form.cleaned_data["type_filter"]
+                attunement = form.cleaned_data['attunement_filter']
+                campaign = form.cleaned_data['campaign_filter']
+                items = ICQS().filter_item_query(rarity=rarity, attunement=attunement, type=type, campaign=campaign)
+                pdf = PDFExporter()
+                response = pdf.generate(items)
+                return response
+
 
         else:
             items = MagicalItem.objects.all()
@@ -44,15 +63,16 @@ def create_item_view(request, form_class=ItemCreatorView, template="viewer/creat
         context = extra_context or {}
 
         if request.POST:
-            print("Valid:", form.is_valid())
-            print("Bound:", form.is_bound)
-            print(form.non_field_errors())
             if form.is_valid():
-                form.save()
-                context.update({
-                    "form": form,
-                    "item_saved": True
-                    })
+                item = form.save()
+                context = {
+                    "form": form_class(
+                        data=None,
+                        files=None
+                        ),
+                    "item_saved": True,
+                    "item": item
+                    }
                 return render(request, template, context, *args, **kwargs)
 
         context.update({
@@ -75,18 +95,19 @@ def edit_item_view(request, id, form_class=ItemEditorView, template="viewer/edit
         if "save_item" in request.POST:
             #import pudb; pudb.set_trace()
             if form.is_valid():
-                form.save()
+                item = form.save()
                 context.update({
                     "form": form,
-                    "item_saved": True
+                    "item_saved": True,
+                    "item": item
                     })
                 return render(request, template, context, *args, **kwargs)
 
         if "delete_item" in request.POST:
             item.delete()
             return redirect('items:item_viewer')
+
         if "back" in request.POST:
-            item.delete()
             return redirect('items:item_viewer')
 
         context.update({

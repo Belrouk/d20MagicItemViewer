@@ -37,12 +37,12 @@ class MagicalItem(TimeStamped):
         (WONDEROUS_ITEM, _('Wonderous Item')),
         )
 
-    COMMON = 10
-    UNCOMMON = 20
-    RARE = 30
-    VERY_RARE = 40
-    LEGENDARY = 50
-    ARTIFACT = 600
+    COMMON = 10         # Black
+    UNCOMMON = 20       # Green
+    RARE = 30           # Blue
+    VERY_RARE = 40      # Silver
+    LEGENDARY = 50      # Gold
+    ARTIFACT = 60      # Orange
     RARITY_LEVEL = (
         (NOVALUE, _("-----")),
         (COMMON, _('Common')),
@@ -64,8 +64,8 @@ class MagicalItem(TimeStamped):
     )
     id = AutoField(primary_key=True)
     # Creator of item should be added
-    campaign = CharField(max_length=200, null=True, blank=True, default="")
-    name = CharField(max_length=200, unique=True)
+    campaign = CharField(max_length=200, null=True, blank=True, default=None)
+    name = CharField(max_length=200)
     rarity = IntegerField(verbose_name=_("Item Rarity"), choices=RARITY_LEVEL,
                           default=COMMON, null=True, blank=True)
     attunement = CharField(verbose_name=_("Requires Attunemnet"), choices=ATTUNEMENT,
@@ -75,7 +75,12 @@ class MagicalItem(TimeStamped):
     value = CharField(max_length=100, null=True, blank=True, default=None)
     description = TextField()
     benefits = RichTextField()
-    # tags for the item should go here as well. for searching. later edition.
+    # tags for the item should go here as well. for searching. later edition.\
+
+    # Add this in when things are stable. The figure out proper error checking. Crispy
+    # doesn't do it automatically
+    # class Meta:
+    #     unique_together= ("name", 'campaign') #and user
 
     def __str__(self):
         return self.name

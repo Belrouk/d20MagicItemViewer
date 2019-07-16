@@ -22,12 +22,22 @@
      <div class="form-group col-md-2 mb-0">
        {{ form.type_filter|as_crispy_field }}
      </div>
+     <div class="form-group col-md-2 mb-0">
+       {{ form.campaign_filter|as_crispy_field }}
+     </div>
      <input class="btn btn-md btn-primary"  name="filter_items" type="submit" value="Filter Items" />
    </div>
    <br>
-  </form>
+
     <div class=''>
-      <ul class="list-group">
+      <div class='row'>
+        <div class="col-md-auto">  <h5>Item Name </h5> </div>
+        <div class="col-md-auto"> <h5>Item Type</h5> </div>
+        <div class="col-md-auto"> <h5>Rarity</h5> </div>
+        <div class="col-md-auto"> <h5>Requires Attunemnet</h5></div>
+        <div class="col-md-auto"> <h5>Item Campaign</h5></div>
+      </div>
+            <ul class="list-group">
               {% for item in item_list %}
                 {% include 'viewer/_partials/_item_card.html' with item=item%}
               {% empty %}
@@ -40,4 +50,5 @@
 <div>
   <input class="btn btn-md btn-primary"  name="export_items" type="submit" value="Export Items as PDF" />
 </div>
+</form>
 {% endblock %}

@@ -7,8 +7,7 @@ from .models import MagicalItem
 
 class ItemCollectionQuerySet(QuerySet):
 
-    def filter_item_query(self, rarity, attunement, type, *args, **kwargs):
-        
+    def filter_item_query(self, rarity, attunement, type, campaign, *args, **kwargs):
         M = MagicalItem.objects.all()
         if int(rarity) > 0:
             M = M.filter(rarity=rarity)
@@ -16,4 +15,6 @@ class ItemCollectionQuerySet(QuerySet):
             M = M.filter(attunement=attunement)
         if int(type) > 0:
             M = M.filter(type=type)
+        if campaign is not None:
+            M = M.filter(campaign=campaign)
         return M
